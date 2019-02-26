@@ -26,6 +26,10 @@ If you want to start different configuration of device, for example a 7 inch tab
 $ docker run --rm --privileged -e ANDROID_ARCH="x86" -e ANDROID_CONFIG="skin.name=600x1024;hw.lcd.density=160;hw.lcd.height=600;hw.lcd.width=1024;hw.device.name=7in WSVGA (Tablet);avd.ini.displayname=7  WSVGA (Tablet) API 23;" -v /dev/kvm:/dev/kvm agoda-com/docker-emulator-android-23:latest
 ```
 
+Mapping vnc port to 5999:
+```console
+sudo docker run --rm --privileged -e ANDROID_ARCH="x86" -p 5999:5900 -e ANDROID_CONFIG="hw.lcd.density=320;hw.lcd.height=720;hw.lcd.width=1280;avd.ini.displayname=Android Pi;" -v /dev/kvm:/dev/kvm  agoda/docker-emulator-android-27:latest
+```
 For all the options available please check the [official documentation](https://developer.android.com/studio/run/emulator-commandline.html)
 
 # Building
@@ -35,7 +39,10 @@ $ export DOCKER_USER=user
 $ export DOCKER_PASS=password
 $ make PROXY=docker-registry-url/ build tag login push
 ```
-
+Or without pushing to server:
+```console
+sudo make build
+```
 # License
 
 docker-emulator-android is open source and available under the [Apache License, Version 2.0](LICENSE).
